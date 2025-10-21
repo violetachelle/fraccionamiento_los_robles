@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loteo La Paz - Lotes prontos para construir en La Paz, Canelones. Financiación accesible y proceso claro.">
+    <meta name="keywords" content="lotes, terrenos, La Paz, Canelones, Uruguay, venta de lotes, financiación">
+    <meta property="og:title" content="Loteo La Paz - Tu terreno ideal">
+    <meta property="og:description" content="Lotes prontos para construir en La Paz, Canelones. Financiación accesible desde USD 8,125 de entrada.">
+    <title>Loteo La Paz - Lotes en La Paz, Canelones</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        
+        .modal-overlay {
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Root container -->
+    <div id="app"></div>
+
+    <script>
+        // Número de WhatsApp actualizado
+        const WHATSAPP_NUMBER = "59892658807";
+
+        // Datos base - Solo lotes 1 a 7
+        const TOTAL_LOTES = 33;
+        const SPECIAL_PRICE_LOTES = [1, 2, 3, 4, 5, 6, 7];
+        const PRICE_SPECIAL_USD = 19900;
+        const MIN_DOWNPAYMENT_USD = 8600;
+        const TERMS = [48, 60, 72, 84];
+
+        const LOCATION = {
+            nombre: "Barrio Los Robles, La Paz, Canelones",
+            direccion: "Dr. Enrique Pouey (ex Ruta 5), límite con Las Piedras",
+            referencias: [
+                "A minutos del Shopping Las Piedras",
+                "Servicios esenciales en la zona",
+            ],
+            mapsUrl: "https://maps.app.goo.gl/cwmF2WfxzhwLggmM8",
+        };
+
+        // Datos específicos de los lotes 1-7 con precios reales
+        function buildLotes() {
+            const lotesData = [
+                { id: 1, precioContado: 52000, entrega: 12000, cuota48: 925, cuota60: 781, cuota72: 686, cuota84: 619, estado: "vendido" },
+                { id: 2, precioContado: 52000, entrega: 12000, cuota48: 910, cuota60: 768, cuota72: 674, cuota84: 609, estado: "disponible" },
+                { id: 3, precioContado: 52000, entrega: 12000, cuota48: 886, cuota60: 748, cuota72: 657, cuota84: 593, estado: "disponible" },
+                { id: 4, precioContado: 52000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580, estado: "disponible" },
+                { id: 5, precioContado: 48000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580, estado: "disponible" },
+                { id: 6, precioContado: 45000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580, estado: "disponible" },
+                { id: 7, precioContado: 45000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580, estado: "disponible" },
+                { id: 8, precioContado: 49920, entrega: 15000, cuota48: 917, cuota60: 774, cuota72: 680, cuota84: 613, estado: "disponible" },
+                { id: 9, precioContado: 60000, entrega: null, cuota48: null, cuota60: null, cuota72: null, cuota84: null, estado: "disponible" },
+                { id: 10, precioContado: 46080, entrega: 13000, cuota48: 868, cuota60: 733, cuota72: 644, cuota84: 581, estado: "disponible" },
+                { id: 11, precioContado: 39000, entrega: 9500, cuota48: 774, cuota60: 654, cuota72: 574, cuota84: 518, estado: "disponible" },
+                { id: 12, precioContado: 38000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465, estado: "disponible" },
+                { id: 13, precioContado: 42650, entrega: 12000, cuota48: 805, cuota60: 679, cuota72: 597, cuota84: 538, estado: "disponible" },
+                { id: 14, precioContado: 68000, entrega: null, cuota48: null, cuota60: null, cuota72: null, cuota84: null, estado: "disponible" },
+                { id: 15, precioContado: 39720, entrega: 9500, cuota48: 793, cuota60: 670, cuota72: 588, cuota84: 531, estado: "disponible" },
+                { id: 16, precioContado: 44330, entrega: 12000, cuota48: 849, cuota60: 716, cuota72: 629, cuota84: 568, estado: "disponible" },
+                { id: 17, precioContado: 45300, entrega: 12000, cuota48: 874, cuota60: 738, cuota72: 648, cuota84: 585, estado: "disponible" },
+                { id: 18, precioContado: 42000, entrega: 18000, cuota48: 951, cuota60: 803, cuota72: 705, cuota84: 637, estado: "disponible" },
+                { id: 19, precioContado: 42000, entrega: 18000, cuota48: 977, cuota60: 824, cuota72: 724, cuota84: 653, estado: "disponible" },
+                { id: 20, precioContado: 38000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465, estado: "disponible" },
+                { id: 21, precioContado: 30000, entrega: 12000, cuota48: 816, cuota60: 689, cuota72: 605, cuota84: 546, estado: "disponible" },
+                { id: 22, precioContado: 30000, entrega: 12000, cuota48: 816, cuota60: 689, cuota72: 605, cuota84: 546, estado: "disponible" },
+                { id: 23, precioContado: 30000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465, estado: "disponible" },
+                { id: 24, precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465, estado: "disponible" },
+                { id: 25, precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465, estado: "disponible" },
+                { id: 26, precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465, estado: "disponible" },
+                { id: 27, precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465, estado: "disponible" },
+                { id: 28, precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463, estado: "disponible" },
+                { id: 29, precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463, estado: "disponible" },
+                { id: 30, precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463, estado: "disponible" },
+                { id: 31, precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463, estado: "disponible" },
+                { id: 32, precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463, estado: "disponible" },
+                { id: 33, precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463, estado: "disponible" }
+            ];
+            
+            return lotesData.map(lote => ({
+                ...lote,
+                especial: lote.id <= 7,
+                precioUSD: lote.precioContado,
+            }));
+        }
+
+        const LOTES = buildLotes();
+
+        // Utilidades
+        function waLink(texto) {
+            const t = encodeURIComponent(texto);
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${t}`;
+        }
+
+        function currency(n) {
+            return new Intl.NumberFormat("es-UY", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+            }).format(n);
+        }
+
+        function cuotaEstimada(precio, down, meses, tasaMensual = 0.0) {
+            const capital = Math.max(precio - down, 0);
+            if (tasaMensual <= 0) return capital / meses;
+            const r = tasaMensual;
+            const m = meses;
+            return (capital * r) / (1 - Math.pow(1 + r, -m));
+        }
+
+        // Cuotas fijas según la tabla de precios actualizada
+        function getCuotaFija(loteId, meses) {
+            const lote = LOTES.find(l => l.id === loteId);
+            if (!lote) return 0;
+            
+            switch(meses) {
+                case 48: return lote.cuota48;
+                case 60: return lote.cuota60;
+                case 72: return lote.cuota72;
+                case 84: return lote.cuota84;
+                default: return lote.cuota84;
+            }
+        }
+
+        // Estado de la aplicación
+        let state = {
+            search: "",
+            selectedLote: null,
+        };
+
+        // Filtrar lotes
+        function filterLotes(search) {
+            const q = search.trim().toLowerCase();
+            if (!q) return LOTES;
+            return LOTES.filter((l) => {
+                const hay = [
+                    String(l.id),
+                    String(l.manzana),
+                    String(l.metros),
+                    l.estado,
+                    l.orientacion,
+                ].join(" ").toLowerCase();
+                return hay.includes(q);
+            });
+        }
+
+        // Renderizar la aplicación
+        function render() {
+            const filtrados = filterLotes(state.search);
+            
+            const app = document.getElementById("app");
+            app.innerHTML = `
+                <div class="min-h-screen bg-white text-gray-900">
+                    <!-- Barra superior -->
+                    <header class="sticky top-0 z-40 backdrop-blur bg-white/90 border-b border-gray-200 shadow-sm">
+                        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img src="Fotos/logo.png" alt="Loteo La Paz" class="h-12 w-auto">
+                            </div>
+                            <nav class="flex gap-8 text-gray-700 font-medium ml-auto mr-14">
+                                <a href="index.html" class="hover:text-blue-600">INICIO</a>
+                                <a href="lotes.html" class="hover:text-blue-600">LOTES</a>
+                            </nav>
+                            <div class="flex items-center gap-3">
+                                <a href="${waLink("Hola, quiero información sobre Fraccionamiento Los Robles")}" 
+                                   class="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-green-600 text-white hover:bg-green-700 transition-all shadow-md hover:shadow-lg font-medium">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                    </svg>
+                                    Contactanos
+                                </a>
+                            </div>                            
+                        </div>
+                    </header>                    
+                    
+                    <!-- Selector de lotes -->
+                    </section>
+                    <section class="max-w-6xl mx-auto px-4 py-16">
+                        <div class="rounded-3xl overflow-hidden">
+                            <img src="Fotos/dibujo.png" alt="Loteo La Paz" class="w-63 h-auto object-contain">
+                        </div>
+                    </section>
+                    </section>
+                    <section id="lotes" class="max-w-6xl mx-auto px-4 py-16">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                            <div>
+                                <h2 class="text-3xl font-bold text-gray-900 mb-2">Elegí tu lote</h2>
+                                <p class="text-gray-600 text-lg">Plano simple por manzana. Estado actualizado.</p>
+                            </div>
+                            <div class="relative w-full md:w-80">
+                                <input id="searchInput" type="text" value="${state.search}"
+                                    class="w-full rounded-xl border-2 border-gray-300 px-5 py-3 pr-10 focus:border-blue-500 focus:outline-none transition-colors"
+                                    placeholder="Buscar por número, manzana...">
+                                <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${filtrados.length === 0 ? `
+                                <div class="col-span-full text-center py-16">
+                                    <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <p class="text-gray-600 text-lg">No se encontraron lotes con esos criterios</p>
+                                </div>
+                            ` : filtrados.map(lote => `
+                                <button onclick="openModal(${lote.id})" ${lote.estado === 'vendido' ? 'disabled' : ''}
+                                    class="text-left rounded-2xl border-2 p-6 shadow-md transition-all duration-200 ${
+                                        lote.estado === "vendido"
+                                            ? "opacity-60 border-gray-300 bg-gray-50 cursor-not-allowed"
+                                            : "border-gray-200 bg-white hover:shadow-xl hover:border-blue-500 hover:-translate-y-1"
+                                    }">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="text-2xl font-bold text-gray-900">Lote ${lote.id}</div>
+                                        ${lote.especial
+                                            ? `<span class="text-xs bg-amber-100 text-amber-800 px-3 py-1.5 rounded-full font-semibold">
+                                                Especial
+                                            </span>`
+                                            : ''}
+                                    </div>
+                                    <div class="space-y-2 mb-4 text-gray-600">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                            </svg>
+                                            ${lote.metros} m²
+                                        </div>
+                                        ${lote.cuota72
+                                            ? `<div class="flex items-center gap-2">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                Cuota desde ${currency(getCuotaFija(lote.id, 72))}
+                                            </div>`
+                                            : ''}
+                                    </div>
+                                    <div class="text-3xl font-bold text-gray-900 mb-4">${currency(lote.precioUSD)}</div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium capitalize ${
+                                            lote.estado === 'vendido' ? 'text-red-600' : 'text-gray-600'
+                                        }">
+                                            ${lote.estado === 'vendido' ? '✗ Vendido' : '✓ Disponible'}
+                                        </span>
+                                        <span class="inline-flex items-center gap-1 rounded-xl px-4 py-2 bg-gray-900 text-white text-sm font-medium">
+                                            Ver detalles
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </section>
+                    <!-- Pie -->
+                    <footer class="bg-gray-50 border-t border-gray-200">
+                        <div class="max-w-6xl mx-auto px-4 py-10">
+                            <div class="grid md:grid-cols-4 gap-8">
+                                <div>
+                                    <img src ="Fotos/logo.png" alt = "Fraccionamiento Los Robles"
+                                    <br>
+                                    </br>
+                                    <p class="text-gray-600">Tu terreno ideal para construir el futuro que soñás.</p>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold mb-3 text-gray-900">Contacto</h3>
+                                    <div class="space-y-2 text-gray-600">
+                                        <p>WhatsApp: +598 92 658 807</p>
+                                        <p>${LOCATION.nombre}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold mb-3 text-gray-900">Ubicación</h3>
+                                    <p class="text-gray-600 mb-3">${LOCATION.direccion}</p>
+                                    <a href="${LOCATION.mapsUrl}" target="_blank" rel="noreferrer"
+                                       class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
+                                        Ver en mapa
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold mb-3 text-gray-900">Comercializa</h3>
+                                    <div class="bg-white rounded-lg border-2 border-gray-200 shadow-sm overflow-hidden h-32">
+                                        <img src="Fotos/logo azul_page-0001 copy.jpg" alt="Sorhuet & Sapelli" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+                                © 2025 Loteo La Paz. Todos los derechos reservados.
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+
+                <!-- Modal -->
+                <div id="modal" class="hidden"></div>
+            `;
+
+            // Agregar event listener al input de búsqueda
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    state.search = e.target.value;
+                    render();
+                });
+            }
+        }
+
+        // Abrir modal
+        function openModal(loteId) {
+            const lote = LOTES.find(l => l.id === loteId);
+            if (!lote) return;
+
+            const modal = document.getElementById('modal');
+            modal.className = 'fixed inset-0 z-50 bg-black/60 modal-overlay flex items-center justify-center p-4 animate-fadeIn';
+            modal.innerHTML = `
+                <div class="max-w-4xl w-full rounded-3xl bg-white p-8 shadow-2xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h3 class="text-3xl font-bold text-gray-900">Lote ${lote.id}</h3>
+                            <span class="inline-block mt-2 text-sm bg-amber-100 text-amber-800 px-3 py-1.5 rounded-full font-semibold">
+                                ⭐ Precio especial de lanzamiento
+                            </span>
+                        </div>
+                        <button onclick="closeModal()" class="rounded-full p-2 hover:bg-gray-100 transition-colors">
+                            <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Plano del lote -->
+                        <div class="rounded-2xl border-2 border-gray-200 overflow-hidden">
+                            <div class="bg-gray-100 p-4 text-center">
+                                <h4 class="font-bold text-lg mb-2">Plano del Loteo</h4>
+                                <p class="text-sm text-gray-600">Lote ${lote.id} destacado en el plano</p>
+                            </div>
+                            <div class="bg-gray-50 p-4">
+                                <div class="w-full h-64 bg-white border-2 border-gray-300 rounded-lg overflow-hidden">
+                                    <iframe src="5946-EA-V10-M02.pdf" 
+                                            width="100%" 
+                                            height="100%" 
+                                            style="border: none;">
+                                    </iframe>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <a href="5946-EA-V10-M02.pdf" 
+                                       target="_blank" 
+                                       class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                        Ver plano completo
+                                    </a>
+                                    <p class="text-xs text-gray-400 mt-1">Lote ${lote.id} - ${lote.calle}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Información del lote -->
+                        <div class="space-y-6">
+                            <div class="space-y-4 text-gray-700">
+                                <div class="flex items-center gap-3 text-lg">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                    </svg>
+                                    <span>${lote.metros} m²</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-lg">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                    <span>Orientación ${lote.orientacion}</span>
+                                </div>
+                                <div class="flex items-start gap-3 text-lg">
+                                    <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span>${lote.calle}</span>
+                                </div>
+                            </div>
+
+                            <div class="rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 p-6">
+                                <div class="text-4xl font-bold text-gray-900 mb-2">${currency(lote.precioUSD)}</div>
+                                <p class="text-gray-600 text-sm">Precio contado</p>
+                            </div>
+
+                            <div class="rounded-2xl border-2 border-gray-200 p-6 bg-white">
+                                <h4 class="font-bold text-xl mb-4 text-gray-900">Opciones de financiación</h4>
+                                ${lote.entrega
+                                    ? `<p class="text-sm text-gray-600 mb-4">
+                                        Entrega inicial desde ${currency(lote.entrega)}
+                                    </p>`
+                                    : ''}
+                                <div class="grid grid-cols-3 gap-3">
+                                    ${TERMS.map(m => {
+                                        const cuota = getCuotaFija(lote.id, m);
+                                        if (!cuota) return '';
+                                        return `
+                                            <div class="rounded-xl bg-gradient-to-br from-blue-50 to-white p-3 border-2 border-blue-200 text-center">
+                                                <div class="text-xs font-semibold text-blue-600 mb-2">${m} meses</div>
+                                                <div class="text-lg font-bold text-gray-900 leading-tight">${currency(cuota)}</div>
+                                                <div class="text-xs text-gray-500 mt-1">por mes</div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                                ${!lote.entrega && !lote.cuota48 && !lote.cuota60 && !lote.cuota72 && !lote.cuota84
+                                  ? `<p class="text-sm text-gray-500 text-center mt-6 italic">
+                                     Consultar condiciones de compra
+                                  </p>`
+                                  : ''}
+                                    <p class="mt-4 text-xs text-gray-500 leading-relaxed">
+                                        Armamos financiación a medida consultanos. Los valores en USD son referenciales las cuotas son en UI
+                                    </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 mt-8">
+                        <a href="${waLink(`Hola, quiero reservar el Lote ${lote.id} en Fraccionamiento Los Robles`)}"
+                           class="flex-1 min-w-[200px] rounded-full px-6 py-4 bg-green-600 text-white hover:bg-green-700 transition-all shadow-lg hover:shadow-xl font-semibold text-center">
+                            Reservar por WhatsApp
+                        </a>
+                        <a href="${waLink('Hola, quiero más información sobre financiación en Fraccionamiento Los Robles')}"
+                           class="flex-1 min-w-[200px] rounded-full px-6 py-4 bg-gray-900 text-white hover:bg-black transition-all shadow-lg hover:shadow-xl font-semibold text-center">
+                            Más información
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            modal.onclick = closeModal;
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.className = 'hidden';
+            modal.innerHTML = '';
+        }
+
+        // Renderizar la aplicación inicial
+        render();
+    </script>
+</body>
+</html>
