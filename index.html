@@ -45,7 +45,7 @@
         const SPECIAL_PRICE_LOTES = [1, 2, 3, 4, 5, 6, 7];
         const PRICE_SPECIAL_USD = 19900;
         const MIN_DOWNPAYMENT_USD = 8600;
-        const TERMS = [48, 60, 72, 84];
+        const TERMS = [48, 60, 72];
 
         const LOCATION = {
             nombre: "Barrio Los Robles, La Paz, Canelones",
@@ -135,8 +135,7 @@
                 case 48: return lote.cuota48;
                 case 60: return lote.cuota60;
                 case 72: return lote.cuota72;
-                case 84: return lote.cuota84;
-                default: return lote.cuota84;
+                default: return lote.cuota72;
             }
         }
 

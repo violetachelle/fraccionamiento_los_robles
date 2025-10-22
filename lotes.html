@@ -8,6 +8,7 @@
     <meta property="og:title" content="Loteo La Paz - Tu terreno ideal">
     <meta property="og:description" content="Lotes prontos para construir en La Paz, Canelones. Financiación accesible desde USD 8,125 de entrada.">
     <title>Loteo La Paz - Lotes en La Paz, Canelones</title>
+    <link rel="icon" type="image/png" href="Fotos/favicon.png">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -44,7 +45,7 @@
         const SPECIAL_PRICE_LOTES = [1, 2, 3, 4, 5, 6, 7];
         const PRICE_SPECIAL_USD = 19900;
         const MIN_DOWNPAYMENT_USD = 8600;
-        const TERMS = [48, 60, 72, 84];
+        const TERMS = [48, 60, 72];
 
         const LOCATION = {
             nombre: "Barrio Los Robles, La Paz, Canelones",
@@ -59,39 +60,39 @@
         // Datos específicos de los lotes 1-7 con precios reales
         function buildLotes() {
             const lotesData = [
-                { id: 1, metros: 315, orientacion: "NE", calle: "Doble salida Avenida Jose Artigas y Calpino", manzana: "A", precioContado: 52000, entrega: 12000, cuota48: 925, cuota60: 781, cuota72: 686, cuota84: 619 },
-                { id: 2, metros: 312, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 52000, entrega: 12000, cuota48: 910, cuota60: 768, cuota72: 674, cuota84: 609 },
-                { id: 3, metros: 309, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 52000, entrega: 12000, cuota48: 886, cuota60: 748, cuota72: 657, cuota84: 593 },
-                { id: 4, metros: 306, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 52000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580 },
-                { id: 5, metros: 303, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 48000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580 },
-                { id: 6, metros: 300, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 45000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580 },
-                { id: 7, metros: 300, orientacion: "SE", calle: "Doble salida Avenida Jose Artigas y Camino de los Ingleses", manzana: "A", precioContado: 45000, entrega: 12000, cuota48: 866, cuota60: 731, cuota72: 642, cuota84: 580 },
-                { id: 8, metros: 384, orientacion: "SE", calle: "Camino de los Ingleses", manzana: "A", precioContado: 49920, entrega: 15000, cuota48: 917, cuota60: 774, cuota72: 680, cuota84: 613 },
-                { id: 9, metros: 502, orientacion: "E", calle: "Camino de los Ingleses", manzana: "A", precioContado: 60000, entrega: 0, cuota48: 0, cuota60: 0, cuota72: 0, cuota84: 0 },
-                { id: 10, metros: 358, orientacion: "E", calle: "Camino de los Ingleses", manzana: "A", precioContado: 46080, entrega: 13000, cuota48: 868, cuota60: 733, cuota72: 644, cuota84: 581 },
-                { id: 11, metros: 300, orientacion: "E", calle: "Doble salida Camino de los Ingleses y Calle pública de 17mts.", manzana: "A", precioContado: 39000, entrega: 9500, cuota48: 774, cuota60: 654, cuota72: 574, cuota84: 518 },
-                { id: 12, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 38000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465 },
-                { id: 13, metros: 388, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 42650, entrega: 12000, cuota48: 805, cuota60: 679, cuota72: 597, cuota84: 538 },
-                { id: 14, metros: 622, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 68000, entrega: 0, cuota48: 0, cuota60: 0, cuota72: 0, cuota84: 0 },
-                { id: 15, metros: 331, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 39720, entrega: 9500, cuota48: 793, cuota60: 670, cuota72: 588, cuota84: 531 },
-                { id: 16, metros: 341, orientacion: "E", calle: "Doble salida Calle pública de 17mts. y Calle Calpino", manzana: "A", precioContado: 44330, entrega: 12000, cuota48: 849, cuota60: 716, cuota72: 629, cuota84: 568 },
-                { id: 17, metros: 302, orientacion: "E", calle: "Calle Calpino", manzana: "A", precioContado: 45300, entrega: 12000, cuota48: 874, cuota60: 738, cuota72: 648, cuota84: 585 },
-                { id: 18, metros: 452, orientacion: "E", calle: "Calle Calpino", manzana: "A", precioContado: 42000, entrega: 18000, cuota48: 951, cuota60: 803, cuota72: 705, cuota84: 637 },
-                { id: 19, metros: 460, orientacion: "E", calle: "Calle Calpino", manzana: "A", precioContado: 42000, entrega: 18000, cuota48: 977, cuota60: 824, cuota72: 724, cuota84: 653 },
-                { id: 20, metros: 300, orientacion: "E", calle: "Doble salida a Camino de los Ingleses y Calle pública de 17mts.", manzana: "B", precioContado: 38000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465 },
-                { id: 21, metros: 359, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 30000, entrega: 12000, cuota48: 816, cuota60: 689, cuota72: 605, cuota84: 546 },
-                { id: 22, metros: 359, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 30000, entrega: 12000, cuota48: 816, cuota60: 689, cuota72: 605, cuota84: 546 },
-                { id: 23, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 30000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465 },
-                { id: 24, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465 },
-                { id: 25, metros: 300, orientacion: "E", calle: "Doble salida a Camino de los Ingleses y Calle Libertad", manzana: "B", precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465 },
-                { id: 26, metros: 300, orientacion: "E", calle: "Calle Libertad", manzana: "B", precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465 },
-                { id: 27, metros: 301, orientacion: "E", calle: "Doble salida a Calle Libertad y Calle pública de 17mts.", manzana: "B", precioContado: 36000, entrega: 9500, cuota48: 696, cuota60: 587, cuota72: 516, cuota84: 465 },
-                { id: 28, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463 },
-                { id: 29, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463 },
-                { id: 30, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463 },
-                { id: 31, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463 },
-                { id: 32, metros: 306, orientacion: "E", calle: "Doble salida a Calle pública de 17mts. y Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463 },
-                { id: 33, metros: 300, orientacion: "E", calle: "Doble salida a Calle Calpino y Calle pública de 17mts.", manzana: "C", precioContado: 34500, entrega: 8125, cuota48: 692, cuota60: 585, cuota72: 513, cuota84: 463 }
+                { id: 1, metros: 315, orientacion: "NE", calle: "Doble salida Avenida Jose Artigas y Calpino", manzana: "A", precioContado: 52000, entrega: 13200, cuota48: 1022, cuota60: 863, cuota72: 759, estado: "disponible" },
+                { id: 2, metros: 312, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 52000, entrega: 13200, cuota48: 1022, cuota60: 863, cuota72: 759, estado: "disponible" },
+                { id: 3, metros: 309, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 52000, entrega: 13200, cuota48: 1022, cuota60: 863, cuota72: 759, estado: "disponible" },
+                { id: 4, metros: 306, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 52000, entrega: 13200, cuota48: 1022, cuota60: 863, cuota72: 759, estado: "disponible" },
+                { id: 5, metros: 303, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 48000, entrega: 12100, cuota48: 945, cuota60: 799, cuota72: 702, estado: "disponible" },
+                { id: 6, metros: 300, orientacion: "E", calle: "Sobre Avenida Jose Artigas", manzana: "A", precioContado: 45000, entrega: 11500, cuota48: 882, cuota60: 745, cuota72: 655, estado: "disponible" },
+                { id: 7, metros: 300, orientacion: "SE", calle: "Doble salida Avenida Jose Artigas y Camino de los Ingleses", manzana: "A", precioContado: 45000, entrega: 11500, cuota48: 882, cuota60: 745, cuota72: 655, estado: "disponible" },
+                { id: 8, metros: 384, orientacion: "SE", calle: "Camino de los Ingleses", manzana: "A", precioContado: 49900, entrega: 12500, cuota48: 985, cuota60: 832, cuota72: 731, estado: "disponible" },
+                { id: 9, metros: 502, orientacion: "E", calle: "Camino de los Ingleses", manzana: "A", precioContado: 60000, entrega: 0, cuota48: 0, cuota60: 0, cuota72: 0, estado: "disponible" },
+                { id: 10, metros: 358, orientacion: "E", calle: "Camino de los Ingleses", manzana: "A", precioContado: 46100, entrega: 11600, cuota48: 909, cuota60: 767, cuota72: 674, estado: "disponible" },
+                { id: 11, metros: 300, orientacion: "E", calle: "Doble salida Camino de los Ingleses y Calle pública de 17mts.", manzana: "A", precioContado: 39000, entrega: 9800, cuota48: 769, cuota60: 650, cuota72: 571, estado: "disponible" },
+                { id: 12, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 38000, entrega: 9600, cuota48: 748, cuota60: 632, cuota72: 555, estado: "disponible" },
+                { id: 13, metros: 388, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 42650, entrega: 10800, cuota48: 839, cuota60: 708, cuota72: 623, estado: "disponible" },
+                { id: 14, metros: 622, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 68000, entrega: 0, cuota48: 0, cuota60: 0, cuota72: 0, estado: "disponible" },
+                { id: 15, metros: 331, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "A", precioContado: 39750, entrega: 9950, cuota48: 785, cuota60: 663, cuota72: 583, estado: "disponible" },
+                { id: 16, metros: 341, orientacion: "E", calle: "Doble salida Calle pública de 17mts. y Calle Calpino", manzana: "A", precioContado: 44350, entrega: 11400, cuota48: 868, cuota60: 733, cuota72: 644, estado: "disponible" },
+                { id: 17, metros: 302, orientacion: "E", calle: "Calle Calpino", manzana: "A", precioContado: 45300, entrega: 11550, cuota48: 889, cuota60: 751, cuota72: 660, estado: "disponible" },
+                { id: 18, metros: 452, orientacion: "E", calle: "Calle Calpino", manzana: "A", precioContado: 42000, entrega: 10600, cuota48: 827, cuota60: 698, cuota72: 614, estado: "disponible" },
+                { id: 19, metros: 460, orientacion: "E", calle: "Calle Calpino", manzana: "A", precioContado: 42000, entrega: 10600, cuota48: 827, cuota60: 698, cuota72: 614, estado: "disponible" },
+                { id: 20, metros: 300, orientacion: "E", calle: "Doble salida a Camino de los Ingleses y Calle pública de 17mts.", manzana: "B", precioContado: 38000, entrega: 9500, cuota48: 751, cuota60: 634, cuota72: 557, estado: "disponible" },
+                { id: 21, metros: 359, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 30000, entrega: 7900, cuota48: 582, cuota60: 492, cuota72: 432, estado: "disponible" },
+                { id: 22, metros: 359, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 30000, entrega: 7900, cuota48: 582, cuota60: 492, cuota72: 432, estado: "disponible" },
+                { id: 23, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 30000, entrega: 7900, cuota48: 582, cuota60: 492, cuota72: 432, estado: "disponible" },
+                { id: 24, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 36000, entrega: 9350, cuota48: 702, cuota60: 593, cuota72: 521, estado: "disponible" },
+                { id: 25, metros: 300, orientacion: "E", calle: "Doble salida a Camino de los Ingleses y Calle Libertad", manzana: "B", precioContado: 36000, entrega: 9350, cuota48: 702, cuota60: 593, cuota72: 521, estado: "disponible" },
+                { id: 26, metros: 300, orientacion: "E", calle: "Calle Libertad", manzana: "B", precioContado: 36000, entrega: 9350, cuota48: 702, cuota60: 593, cuota72: 521, estado: "disponible" },
+                { id: 27, metros: 301, orientacion: "E", calle: "Doble salida a Calle Libertad y Calle pública de 17mts.", manzana: "B", precioContado: 36000, entrega: 9350, cuota48: 702, cuota60: 593, cuota72: 521, estado: "disponible" },
+                { id: 28, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8900, cuota48: 674, cuota60: 569, cuota72: 500, estado: "disponible" },
+                { id: 29, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8900, cuota48: 674, cuota60: 569, cuota72: 500, estado: "disponible" },
+                { id: 30, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8900, cuota48: 674, cuota60: 569, cuota72: 500, estado: "disponible" },
+                { id: 31, metros: 300, orientacion: "E", calle: "Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8900, cuota48: 674, cuota60: 569, cuota72: 500, estado: "disponible" },
+                { id: 32, metros: 306, orientacion: "E", calle: "Doble salida a Calle pública de 17mts. y Calle pública de 17mts.", manzana: "B", precioContado: 34500, entrega: 8900, cuota48: 674, cuota60: 569, cuota72: 500, estado: "disponible" },
+                { id: 33, metros: 300, orientacion: "E", calle: "Doble salida a Calle Calpino y Calle pública de 17mts.", manzana: "C", precioContado: 34500, entrega: 8900, cuota48: 674, cuota60: 569, cuota72: 500, estado: "disponible" }
             ];
             
             return lotesData.map(lote => ({
@@ -134,8 +135,7 @@
                 case 48: return lote.cuota48;
                 case 60: return lote.cuota60;
                 case 72: return lote.cuota72;
-                case 84: return lote.cuota84;
-                default: return lote.cuota84;
+                default: return lote.cuota72;
             }
         }
 
@@ -465,7 +465,7 @@
                                         `;
                                     }).join('')}
                                 </div>
-                                ${!lote.entrega && !lote.cuota48 && !lote.cuota60 && !lote.cuota72 && !lote.cuota84
+                                ${!lote.entrega && !lote.cuota48 && !lote.cuota60 && !lote.cuota72
                                   ? `<p class="text-sm text-gray-500 text-center mt-6 italic">
                                      Consultar condiciones de compra
                                   </p>`
