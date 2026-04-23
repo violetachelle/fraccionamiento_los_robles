@@ -255,7 +255,7 @@
                             ` : filtrados.map(lote => `
                                 <button onclick="openModal(${lote.id})" ${lote.estado === 'vendido' ? 'disabled' : ''}
                                     class="text-left rounded-2xl border-2 p-6 shadow-md transition-all duration-200 ${
-                                        lote.estado === "vendido"
+                                        lote.estado === "vendido" || lote.estado === "reservado"
                                             ? "opacity-60 border-gray-300 bg-gray-50 cursor-not-allowed"
                                             : "border-gray-200 bg-white hover:shadow-xl hover:border-blue-500 hover:-translate-y-1"
                                     }">
@@ -286,9 +286,9 @@
                                     <div class="text-3xl font-bold text-gray-900 mb-4">${currency(lote.precioUSD)}</div>
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm font-medium capitalize ${
-                                            lote.estado === 'vendido' ? 'text-red-600' : 'text-gray-600'
+                                            lote.estado === 'vendido' ? 'text-red-600' : lote.estado === 'reservado' ? 'text-orange-500' : 'text-gray-600'
                                         }">
-                                            ${lote.estado === 'vendido' ? '✗ Vendido' : '✓ Disponible'}
+                                            ${lote.estado === 'vendido' ? '✗ Vendido' : lote.estado === 'reservado' ? '⏳ Reservado' : '✓ Disponible'}
                                         </span>
                                         <span class="inline-flex items-center gap-1 rounded-xl px-4 py-2 bg-gray-900 text-white text-sm font-medium">
                                             Ver detalles
